@@ -37,7 +37,10 @@ class MyOtherComponent extends Component {
     super(props);
     this.state = {
       color: 'red',
+      myNumber: 1,
     };
+
+    this.onClickNormal = this.onClickNormal.bind(this);
   }
 
   // static getDerivedStateFromProps(props) {
@@ -54,6 +57,10 @@ class MyOtherComponent extends Component {
 
     console.log('Unmount called');
   }
+
+  componentDidUpdate() {
+    console.log('Component updated');
+  }
   shouldComponentUpdate(nextProps, nextState) {
     if (nextState.color !== this.state.color) {
       return true;
@@ -63,8 +70,19 @@ class MyOtherComponent extends Component {
   }
 
   onClick = () => {
-    this.setState({color: 'orange'});
+    this.setState({color: 'orange'}, () => {
+      console.log('this.state.color: ', this.state.color);
+    });
+
+    // orange
+    // apiCall(this.state.color);
   };
+
+  // Normal function
+  onClickNormal() {
+    console.log(this);
+    this.setState({color: 'green'});
+  }
 
   render() {
     return (
@@ -76,7 +94,7 @@ class MyOtherComponent extends Component {
           backgroundColor: this.state.color,
         }}>
         <Text>{'Hello World'}</Text>
-        <Text>{'Hello World'}</Text>
+        <Text>{this.state.myNumber}</Text>
         <TouchableOpacity onPress={this.onClick}>
           <Text>{'Click me'}</Text>
         </TouchableOpacity>
