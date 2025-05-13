@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
+// import Counter from './classComp/Counter';
+import Counter from './functionalComp/counter';
+import NameComponent from './functionalComp/name';
 
 class AppComponent extends Component {
   constructor(props) {
@@ -16,14 +19,9 @@ class AppComponent extends Component {
 
   render() {
     return (
-      <View style={{flex: 1}}>
-        {this.state.isMount && <MyOtherComponent color="yellow" />}
-
-        <TouchableOpacity
-          style={{marginTop: 100}}
-          onPress={this.onPressUnmount}>
-          <Text>{'Unmount Me'}</Text>
-        </TouchableOpacity>
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        {/* {this.state.isMount && <MyOtherComponent color="yellow" />} */}
+        <NameComponent />
       </View>
     );
   }
@@ -73,7 +71,7 @@ class MyOtherComponent extends Component {
     this.setState({color: 'orange'}, () => {
       console.log('this.state.color: ', this.state.color);
     });
-
+    console.log(this.state.color);
     // orange
     // apiCall(this.state.color);
   };
