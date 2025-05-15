@@ -33,7 +33,7 @@ class Counter extends Component {
   };
 
   myFunc = (object, cb) => {};
-  myFunc = (fxn, cb) => {};
+  // myFunc = (fxn, cb) => {};
 
   render() {
     return (
