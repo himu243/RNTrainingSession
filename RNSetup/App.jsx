@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, Button} from 'react-native';
 // import Counter from './classComp/Counter';
 import Counter from './functionalComp/counter';
 import NameComponent from './functionalComp/name';
+import UseMemoHookExample from './functionalComp/useMemo';
+import UseEffectExamples from './functionalComp/useEffectExample';
 
 class AppComponent extends Component {
   constructor(props) {
@@ -21,7 +23,9 @@ class AppComponent extends Component {
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         {/* {this.state.isMount && <MyOtherComponent color="yellow" />} */}
-        <NameComponent />
+        {/* <NameComponent /> */}
+        {this.state.isMount && <UseEffectExamples />}
+        {/* <Button title="Press me" onPress={this.onPressUnmount} /> */}
       </View>
     );
   }
