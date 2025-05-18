@@ -155,7 +155,10 @@ class CustomTextComp extends Component {
   shouldComponentUpdate(nextProps) {
     return this.props.name !== nextProps.name;
   }
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.text !== this.state.text) {
+      console.log('Use Effect called on text change');
+    }
     console.log(`Component Updated for ${this.props.name}`);
   }
 

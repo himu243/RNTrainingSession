@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, Button} from 'react-native';
 // import Counter from './classComp/Counter';
-import Counter from './functionalComp/counter';
-import NameComponent from './functionalComp/name';
-import UseMemoHookExample from './functionalComp/useMemo';
-import UseEffectExamples from './functionalComp/useEffectExample';
+// import Counter from './src/classComp/Counter';
+// import NameComponent from './src/functionalComp/name';
+// import UseMemoHookExample from './src/functionalComp/useMemo';
+// import UseEffectExamples from './src/functionalComp/useEffectExample';
+import UseCallbackExample from './src/functionalComp/useCallbackExample';
+import UseMemoExample from './src/functionalComp/useMemoExample';
+import UseRefHookExample from './src/functionalComp/useRefHook';
 
 class AppComponent extends Component {
   constructor(props) {
@@ -24,7 +27,7 @@ class AppComponent extends Component {
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         {/* {this.state.isMount && <MyOtherComponent color="yellow" />} */}
         {/* <NameComponent /> */}
-        {this.state.isMount && <UseEffectExamples />}
+        {this.state.isMount && <UseRefHookExample />}
         {/* <Button title="Press me" onPress={this.onPressUnmount} /> */}
       </View>
     );
