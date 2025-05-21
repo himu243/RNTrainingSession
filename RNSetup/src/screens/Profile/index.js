@@ -6,19 +6,18 @@ import {NAVIGATION_ROUTE_NAME} from '../../constants';
 function ProfileScreen({route}) {
   const navigation = useNavigation();
 
-  const {id, name} = route?.params;
+  //   const {id, name} = route?.params;
 
-  console.log('id in profile: ', id);
-  console.log('naeme in profile: ', name);
+  //   console.log('id in profile: ', id);
+  //   console.log('naeme in profile: ', name);
 
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <Text>Profile Screen</Text>
       <Button
-        title={'Go to Next Profile'}
-        onPress={() => navigation.push(NAVIGATION_ROUTE_NAME.PROFILE)}
+        title={'Go to Settings'}
+        onPress={() => navigation.navigate(NAVIGATION_ROUTE_NAME.SETTINGS)}
       />
-      <Button title={'Go Back'} onPress={() => navigation.goBack()} />
     </View>
   );
 }

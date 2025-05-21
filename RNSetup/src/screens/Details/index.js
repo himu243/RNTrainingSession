@@ -4,7 +4,7 @@ import {useNavigation} from '@react-navigation/native';
 
 import {NAVIGATION_ROUTE_NAME} from '../../constants';
 
-function HomeScreen({route}) {
+function DetailsScreen({route}) {
   const navigation = useNavigation();
   console.log('route.params: ', route.params);
   const [state, setState] = useState(1);
@@ -12,12 +12,9 @@ function HomeScreen({route}) {
 
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Home Screen</Text>
-      <Button
-        title={'Go to Details'}
-        onPress={() => navigation.navigate(NAVIGATION_ROUTE_NAME.DETAILS)}
-      />
+      <Text>Details Screen</Text>
+      <Button title={'Go to Profile'} onPress={() => navigation.goBack()} />
     </View>
   );
 }
-export default HomeScreen;
+export default DetailsScreen;
