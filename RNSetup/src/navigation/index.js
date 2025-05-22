@@ -55,8 +55,33 @@ const RootTabNavigator = props => {
     <Tab.Navigator
       screenOptions={({route}) => ({
         headerShown: false,
-        tabBarActiveTintColor: '#007AFF',
-        tabBarInactiveTintColor: 'gray',
+        tabBarIcon: ({focused, color, size}) => {
+          let icon;
+
+          if (route.name === NAVIGATION_ROUTE_NAME.TAB.HOME_TAB) {
+            console.log('focused: ', focused);
+            console.log('color: ', color);
+            console.log('size: ', size);
+
+            icon = focused
+              ? require('../icons/map_on.png')
+              : require('../icons/map_off.png');
+          } else if (route.name === NAVIGATION_ROUTE_NAME.TAB.PROFILE_TAB) {
+            icon = focused
+              ? require('../icons/profile_on.png')
+              : require('../icons/profile_off.png');
+          }
+          return (
+            <Image
+              source={icon}
+              style={{
+                width: size,
+                height: size,
+                tintColor: color,
+              }}
+            />
+          );
+        },
       })}>
       <Tab.Screen
         name={TAB.HOME_TAB}
