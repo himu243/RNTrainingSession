@@ -13,6 +13,8 @@ import LoginScreen from '../screens/Login';
 import ForgotPasswordScreen from '../screens/ForgotPassword';
 import DetailsScreen from '../screens/Details';
 import SettingsScreen from '../screens/Settings';
+import {AppContext, AppStateProvider} from '../context';
+import SplashScreen from '../screens/Splash';
 
 const {LOGIN, FORGET_PASSWORD, HOME, DETAILS, PROFILE, SETTINGS, TAB} =
   NAVIGATION_ROUTE_NAME;
@@ -48,12 +50,14 @@ const ProfileStack = () => {
   );
 };
 
-const RootTabNavigator = () => {
+const RootTabNavigator = props => {
   return (
     <Tab.Navigator
-      screenOptions={{
+      screenOptions={({route}) => ({
         headerShown: false,
-      }}>
+        tabBarActiveTintColor: '#007AFF',
+        tabBarInactiveTintColor: 'gray',
+      })}>
       <Tab.Screen
         name={TAB.HOME_TAB}
         component={HomeStack}
@@ -81,13 +85,16 @@ const RootTabNavigator = () => {
 };
 
 function RootStack() {
-  const [isLogin, setIsLogin] = React.useState(false);
+  const {appState} = React.useContext(AppContext);
 
-  if (isLogin) {
+  if (appState.isLoggedIn) {
     return <RootTabNavigator />;
+  } else if (appState.isSplashLoading) {
+    return <SplashScreen />;
   } else {
     return <AuthStack />;
   }
+
   //   return (
   //     <Stack.Navigator>
   //       <Stack.Screen
@@ -119,9 +126,11 @@ export const myFunc = () => {};
 
 const AppNavigator = () => {
   return (
-    <NavigationContainer>
-      <RootStack />
-    </NavigationContainer>
+    <AppStateProvider>
+      <NavigationContainer>
+        <RootStack />
+      </NavigationContainer>
+    </AppStateProvider>
   );
 };
 export default AppNavigator;

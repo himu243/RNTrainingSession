@@ -2,6 +2,8 @@ import {useNavigation} from '@react-navigation/native';
 import React, {useState, useReducer} from 'react';
 import {View, Text, TextInput, Button} from 'react-native';
 import {NAVIGATION_ROUTE_NAME} from '../../constants';
+import {AppContext} from '../../context';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const stateChangerFxn = (prevState, action) => {
   const {type, payload} = action;
@@ -22,50 +24,59 @@ const INITIAL_STATE = {
 };
 
 function LoginScreen() {
-  //   const [emai, setEmail] = useState('');
-  //   const [password, setPassword] = useState('');
-  // const [valState, setValState] = useState({
-  //     email: '',
-  //     pass: '',
-  // })
-  const [myState, dispatch] = useReducer(stateChangerFxn, INITIAL_STATE);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  console.log('myState: ', myState);
+  //   const [myState, dispatch] = useReducer(stateChangerFxn, INITIAL_STATE);
+  const {appStateDispatch} = React.useContext(AppContext);
+
+  //   console.log('myState: ', myState);
 
   const navigation = useNavigation();
-  const onPressLogin = () => {};
+  const onPressLogin = () => {
+    const action = {
+      type: 'SET_IS_LOGIN',
+      payload: true,
+    };
+    console.log('setting action: ', action);
+    appStateDispatch(action);
+
+    AsyncStorage.setItem('isLoggedIn', 'true');
+  };
 
   const onSetEmail = emailVal => {
+    setEmail(emailVal);
     // setValState({
     //     ...valState,
     //     email: emailVal
     // })
-    const action = {
-      type: 'SET_EMAIL',
-      payload: emailVal,
-    };
-    dispatch(action);
+    // const action = {
+    //   type: 'SET_EMAIL',
+    //   payload: emailVal,
+    // };
+    // dispatch(action);
   };
 
   const onSetPassword = passVal => {
-    const action = {
-      type: 'SET_PASSWORD',
-      payload: passVal,
-    };
-    dispatch(action);
+    setPassword(passVal);
+    // const action = {
+    //   type: 'SET_PASSWORD',
+    //   payload: passVal,
+    // };
+    // dispatch(action);
   };
 
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <Text>{'Login Screen'}</Text>
       <TextInput
-        value={myState.email}
+        value={email}
         onChangeText={onSetEmail}
         placeholder="Enter User Id or Email"
         style={{padding: 8, margin: 8, borderWidth: 1}}
       />
       <TextInput
-        value={myState.password}
+        value={password}
         onChangeText={onSetPassword}
         placeholder="Enter Password"
         style={{padding: 8, margin: 8, borderWidth: 1}}
