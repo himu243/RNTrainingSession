@@ -3,7 +3,7 @@ import React, {useState, useReducer} from 'react';
 import {View, Text, TextInput, Button} from 'react-native';
 import {NAVIGATION_ROUTE_NAME} from '../../constants';
 import {AppContext} from '../../context';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {setItem, STORAGE_KEYS} from '../../helper/LocalStorageHelper';
 
 const stateChangerFxn = (prevState, action) => {
   const {type, payload} = action;
@@ -41,7 +41,7 @@ function LoginScreen() {
     console.log('setting action: ', action);
     appStateDispatch(action);
 
-    AsyncStorage.setItem('isLoggedIn', 'true');
+    setItem(STORAGE_KEYS.IS_LOGGED_IN, true);
   };
 
   const onSetEmail = emailVal => {

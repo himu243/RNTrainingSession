@@ -1,7 +1,7 @@
 // In App.js in a new project
 
 import * as React from 'react';
-import {View, Text, Image} from 'react-native';
+import {Image} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NAVIGATION_ROUTE_NAME} from '../constants';
@@ -119,28 +119,7 @@ function RootStack() {
   } else {
     return <AuthStack />;
   }
-
-  //   return (
-  //     <Stack.Navigator>
-  //       <Stack.Screen
-  //         name={HOME}
-  //         component={HomeScreen}
-  //         // options={{
-  //         //   headerShown: false,
-  //         // }}
-  //         // options={{title: 'Overview'}}
-  //       />
-  //       <Stack.Screen
-  //         name={PROFILE}
-  //         component={ProfileScreen}
-  //         // initialParams={{itemId: 11, otherParams: 'Hello there'}}
-  //       />
-  //     </Stack.Navigator>
-  //   );
 }
-//   screenOptions={{
-//     headerStyle: {backgroundColor: 'tomato'},
-//   }}
 export const myFunc = () => {};
 // export const myFunc1 = () => {};
 // export const myFunc2 = () => {};
