@@ -287,17 +287,28 @@ used in a place where fxns are used as values like in fxn statement
 
 // obj.printA.bind(this)();
 
-const obj = {
-  name: "Himanshu",
+// const obj = {
+//   name: "Himanshu",
+//   printThis() {
+//     console.log("this: ", this);
+//   },
+//   // arrFxn: () => {
+//   //   console.log(this);
+// //   // },
+// // };
 
-  // arrFxn: () => {
-  //   console.log(this);
-  // },
-};
+// const obj1 = {
+//   name: "Jashwanth",
+//   pName() {
+//     console.log(this.name);
+//   },
+// };
 
-const obj1 = {
-  name: "Jashwanth",
-};
+// obj1.pName();
+
+// const refOfPname = obj1.pName;
+
+// refOfPname();
 
 // function printThis() {
 //   console.log("this: ", this);
@@ -307,18 +318,18 @@ const obj1 = {
 // const newPrintThis = printThis.bind(obj);
 // newPrintThis();
 
-function printFullName(hometown, hometown2) {
-  console.log(`${this.name} lives in ${hometown} and ${hometown2}`);
-}
+// function printFullName(hometown, hometown2) {
+//   console.log(`${this.name} lives in ${hometown} and ${hometown2}`);
+// }
 
 // Call
 // printFullName.call(obj, "Punjab", "Bathinda");
 
 // printFullName.call(obj1, "Banglore", "fjewhfewkj");
 
-// Apply
-printFullName.apply(obj, ["Punjab", "Bathinda"]);
-printFullName.apply(obj1, ["Banglore", "fjewhfewkj"]);
+// // Apply
+// printFullName.apply(obj, ["Punjab", "Bathinda"]);
+// printFullName.apply(obj1, ["Banglore", "fjewhfewkj"]);
 
 // printFullName();
 
@@ -333,3 +344,111 @@ printFullName.apply(obj1, ["Banglore", "fjewhfewkj"]);
 
 // 2
 // myNameFxn(); // object
+
+// let myObj = {
+//   a: 1,
+//   b: 2,
+// };
+
+// myObj = { a: 1 };
+
+// let abc = 1;
+// let efg = 2;
+
+// const objjj = { abc, efg }; // {abc: 1, efg: 2}
+
+// Falsey Values -> 0, "", null, undefined
+
+// !!("") -> boolen
+
+// Truthy Values - {}, [],
+
+const cart = ["book", "jeans", "TV"];
+
+// createOrder(cart, () => {
+//   goingForPayment(() => {
+//     updateWallet();
+//   });
+// });
+
+// Risky Syntax
+
+// PROMISE
+// const myFunc = () => {};
+
+// const promise = fetch("https://jsonplaceholder.typicode.com/posts");
+
+// console.log("1");
+
+// promise.then((result) => {
+//   console.log("3");
+//   console.log("result: ", result);
+// });
+
+// console.log("2");
+
+// const myFxn = () => {
+//   return {
+//     a: 1,
+//     b: 2,
+//     fxn: () => {},
+//   };
+// };
+
+// myFxn().fxn();
+
+// createOrder(cart)
+//   .then((res) => {
+//     return goingForPayment();
+//   })
+//   .then((res) => {
+//     updateWallet();
+//   });
+
+const myTimeoutFxn = () => {
+  const callbackOfPromiseConstructor = (resolve, reject) => {
+    console.log("3");
+    const timeOutTimer = 2000;
+    setTimeout(() => {
+      console.log("4");
+      if (timeOutTimer % 2 === 0) {
+        resolve("10");
+      } else {
+        reject(10);
+      }
+    }, timeOutTimer);
+  };
+
+  console.log("1");
+  const promise = new Promise(callbackOfPromiseConstructor);
+  console.log("2");
+  return promise;
+};
+
+myTimeoutFxn()
+  .then((val) => {
+    console.log("5");
+    console.log("Value from promise: ", val);
+  })
+  .catch((val) => {
+    console.log("catch from promise: ", val);
+  });
+
+fetch("https://jsonplaceholder.typicode.com/pos")
+  .then((val) => {
+    console.log("val: ", val);
+  })
+  .catch((err) => {
+    console.log("err: ", err);
+  });
+// {state: pending, result: undefined}
+// {state: fulfilled, result: {body: "", headers: "", url: ""}}
+
+// class MyClass {
+//   constructor(a, b) {
+//     this.a = a;
+//     this.b = b;
+//   }
+// }
+
+// const myClassObj = new MyClass(1, 2);
