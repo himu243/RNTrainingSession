@@ -15,6 +15,8 @@ import DetailsScreen from '../screens/Details';
 import SettingsScreen from '../screens/Settings';
 import {AppContext, AppStateProvider} from '../context';
 import SplashScreen from '../screens/Splash';
+import {Provider} from 'react-redux';
+import store from '../redux';
 
 const {LOGIN, FORGET_PASSWORD, HOME, DETAILS, PROFILE, SETTINGS, TAB} =
   NAVIGATION_ROUTE_NAME;
@@ -130,11 +132,13 @@ export const myFunc = () => {};
 
 const AppNavigator = () => {
   return (
-    <AppStateProvider>
-      <NavigationContainer>
-        <RootStack />
-      </NavigationContainer>
-    </AppStateProvider>
+    <Provider store={store}>
+      <AppStateProvider>
+        <NavigationContainer>
+          <RootStack />
+        </NavigationContainer>
+      </AppStateProvider>
+    </Provider>
   );
 };
 export default AppNavigator;

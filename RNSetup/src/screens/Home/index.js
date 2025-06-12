@@ -47,6 +47,21 @@ function HomeScreen({route}) {
       }));
     }
   };
+  const fxnToReturnCustomisedText = value => {
+    const a = 10;
+    return (
+      <Text
+        style={{
+          borderWidth: 1,
+          borderColor: 'black',
+          width: '60%',
+          height: 60,
+          textAlign: 'center',
+        }}>
+        {`${a} ${value}`}
+      </Text>
+    );
+  };
 
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
@@ -55,8 +70,10 @@ function HomeScreen({route}) {
       {screenData.data &&
         screenData?.data
           ?.slice(0, 10)
-          .map(post => <Text key={post?.id}>{post?.title}</Text>)}
+          .map((post, index) => <Text key={post?.id}>{post?.title}</Text>)}
       {screenData?.errorLoading && <Text>{'Error Loading Data'}</Text>}
+      {fxnToReturnCustomisedText('My Text Component')}
+      {fxnToReturnCustomisedText('My Text Component2')}
       <Button
         title={'Go to Details'}
         onPress={() => navigation.navigate(NAVIGATION_ROUTE_NAME.DETAILS)}
