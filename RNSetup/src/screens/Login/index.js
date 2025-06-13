@@ -37,7 +37,7 @@ function LoginScreen() {
   const {appStateDispatch} = React.useContext(AppContext);
 
   // Redux Hooks
-  const authState = useSelector(state => state);
+  const authState = useSelector(state => state.authData);
   const dispatch = useDispatch();
 
   console.log('authState: ', authState);
@@ -60,8 +60,10 @@ function LoginScreen() {
     try {
       const userData = await simulatedApiCallForLogin();
       if (userData) {
-        const reduxAction = setIsLogin(userData); // actionCreator
-        dispatch(reduxAction);
+        const loginAction = setIsLogin(userData); // actionCreator
+        dispatch(loginAction);
+
+        setItem(STORAGE_KEYS.USER_DATA, userData); // Async Storage
       }
     } catch (error) {
       console.log('error in login: ', error);

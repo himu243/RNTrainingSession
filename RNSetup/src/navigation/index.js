@@ -15,8 +15,8 @@ import DetailsScreen from '../screens/Details';
 import SettingsScreen from '../screens/Settings';
 import {AppContext, AppStateProvider} from '../context';
 import SplashScreen from '../screens/Splash';
-import {Provider} from 'react-redux';
-import store from '../redux';
+import {Provider, useSelector} from 'react-redux';
+import store from '../redux/store';
 
 const {LOGIN, FORGET_PASSWORD, HOME, DETAILS, PROFILE, SETTINGS, TAB} =
   NAVIGATION_ROUTE_NAME;
@@ -114,7 +114,9 @@ const RootTabNavigator = props => {
 function RootStack() {
   const {appState} = React.useContext(AppContext);
 
-  if (appState.isLoggedIn) {
+  const authState = useSelector(state => state.authData);
+
+  if (authState.isLoggedIn) {
     return <RootTabNavigator />;
   } else if (appState.isSplashLoading) {
     return <SplashScreen />;

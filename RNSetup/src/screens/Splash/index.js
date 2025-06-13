@@ -4,9 +4,14 @@ import {View, Text} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {AppContext} from '../../context';
 import {getItem, STORAGE_KEYS} from '../../helper/LocalStorageHelper';
+import {setIsLogin} from '../../redux/actions/authActions';
+import {useDispatch} from 'react-redux';
 
 const SplashScreen = () => {
   const {appStateDispatch} = React.useContext(AppContext);
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
     setData();
   }, []);
@@ -19,14 +24,23 @@ const SplashScreen = () => {
   };
 
   const updateLoginData = async () => {
-    const getDataOfLogin = await getItem(STORAGE_KEYS.IS_LOGGED_IN);
     // const getDataOfLogin = await AsyncStorage.getItem('isLoggedIn');
+
     // Login
-    const action = {
-      type: 'SET_IS_LOGIN',
-      payload: !!getDataOfLogin,
-    };
-    appStateDispatch(action);
+    // const action = {
+    //   type: 'SET_IS_LOGIN',
+    //   payload: !!getDataOfLogin,
+    // };
+    // appStateDispatch(action);
+    try {
+      const userData = await getItem(STORAGE_KEYS.USER_DATA);
+      if (userData) {
+        const loginAction = setIsLogin(userData); // actionCreator
+        dispatch(loginAction);
+      }
+    } catch (error) {
+      console.log('error: ', error);
+    }
   };
 
   const setSplashLoadingData = () => {

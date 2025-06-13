@@ -2,6 +2,7 @@ import {AUTH_ACTIONS} from './types';
 
 const {LOGIN, LOGOUT} = AUTH_ACTIONS;
 
+// action creators
 export const setIsLogin = userObj => {
   return {
     type: userObj ? LOGIN : LOGOUT,
