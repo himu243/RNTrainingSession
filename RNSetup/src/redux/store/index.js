@@ -1,4 +1,7 @@
-import {combineReducers, createStore} from 'redux';
+import {applyMiddleware, combineReducers, createStore} from 'redux';
+import thunkMiddleware from 'redux-thunk';
+import logger from 'redux-logger';
+
 import authReducer from '../reducers/authReducer';
 import homeReducer from '../reducers/homeReducer';
 
@@ -7,13 +10,7 @@ const rootReducer = combineReducers({
   homeData: homeReducer,
 });
 
-/* ==> 
-    {
-    authReducer: authReducer,
-    homeReducer: homeReducer
-    }
-*/
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(logger));
 
 export default store;
 
