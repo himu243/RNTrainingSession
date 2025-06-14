@@ -15,7 +15,7 @@ export const setIsLoadingPosts = () => {
 };
 
 export const setAllPostsData = () => async (dispatch, getState) => {
-  console.log(' state of the entire store: ', getState);
+  console.log(' state of the entire store: ', getState());
   // 1. Loading
   dispatch({
     type: HOME_ACTIONS.IS_LOADING_POSTS,

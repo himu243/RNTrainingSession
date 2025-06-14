@@ -35,7 +35,7 @@ const SplashScreen = () => {
     try {
       const userData = await getItem(STORAGE_KEYS.USER_DATA);
       if (userData) {
-        const loginAction = setIsLogin(userData); // actionCreator
+        const loginAction = setIsLogin(JSON.parse(userData)); // actionCreator
         dispatch(loginAction);
       }
     } catch (error) {
