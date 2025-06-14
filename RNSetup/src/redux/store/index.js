@@ -1,6 +1,8 @@
 import {applyMiddleware, combineReducers, createStore} from 'redux';
-import thunkMiddleware from 'redux-thunk';
+import {thunk} from 'redux-thunk';
 import logger from 'redux-logger';
+
+console.log('thunk is: ', thunk);
 
 import authReducer from '../reducers/authReducer';
 import homeReducer from '../reducers/homeReducer';
@@ -10,7 +12,7 @@ const rootReducer = combineReducers({
   homeData: homeReducer,
 });
 
-const store = createStore(rootReducer, applyMiddleware(logger));
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
 export default store;
 
