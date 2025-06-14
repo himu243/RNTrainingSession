@@ -5,7 +5,11 @@ import {useNavigation} from '@react-navigation/native';
 import {NAVIGATION_ROUTE_NAME} from '../../constants';
 import {getPostsData} from '../../api/homeApi';
 import {useDispatch, useSelector} from 'react-redux';
-import {setIsLoadingPosts, setPostsData} from '../../redux/actions/homeActions';
+import {
+  setAllPostsData,
+  setIsLoadingPosts,
+  setPostsData,
+} from '../../redux/actions/homeActions';
 
 function HomeScreen({route}) {
   const navigation = useNavigation();
@@ -29,18 +33,18 @@ function HomeScreen({route}) {
   }, []);
 
   const initialiseHomeData = async () => {
-    // 1. Set isLoadingPosts in homeReducer to TRUE
-    const loadingAction = setIsLoadingPosts();
-    dispatch(loadingAction);
-
-    try {
-      const posts = await getPostsData();
-      // 2.
-      const setPostsAction = setPostsData(posts);
-      dispatch(setPostsAction);
-    } catch (error) {
-      console.log('error: ', error);
-    }
+    dispatch(setAllPostsData());
+    // // 1. Set isLoadingPosts in homeReducer to TRUE
+    // const loadingAction = setIsLoadingPosts();
+    // dispatch(loadingAction);
+    // try {
+    //   const posts = await getPostsData();
+    //   // 2.
+    //   const setPostsAction = setPostsData(posts);
+    //   dispatch(setPostsAction);
+    // } catch (error) {
+    //   console.log('error: ', error);
+    // }
   };
   // const initialiseData = async () => {
   //   setScreenData(prevData => ({
