@@ -5,7 +5,7 @@ import {NAVIGATION_ROUTE_NAME} from '../../constants';
 import {AppContext} from '../../context';
 import {setItem, STORAGE_KEYS} from '../../helper/LocalStorageHelper';
 import {useDispatch, useSelector} from 'react-redux';
-import {setIsLogin} from '../../redux/actions/authActions';
+import {setIsLogin, setIsLoginData} from '../../redux/actions/authActions';
 
 const stateChangerFxn = (prevState, action) => {
   const {type, payload} = action;
@@ -46,7 +46,10 @@ function LoginScreen() {
 
   const navigation = useNavigation();
 
-  const onPressLogin = async () => {
+  const onPressLogin = () => {
+    // 1. If email and Password feilds are empty. ->
+    // 2. If user email, check if it is in correct format.
+    // 3.
     // const action = {
     //   type: 'SET_IS_LOGIN',
     //   payload: true,
@@ -57,19 +60,19 @@ function LoginScreen() {
     // setItem(STORAGE_KEYS.IS_LOGGED_IN, true);
 
     // API Call
-    try {
-      const userData = await simulatedApiCallForLogin();
-      if (userData) {
-        const loginAction = setIsLogin(userData); // actionCreator
-        dispatch(loginAction);
+    // try {
+    //   const userData = await simulatedApiCallForLogin();
+    //   if (userData) {
+    //     const loginAction = setIsLogin(userData); // actionCreator
+    //     dispatch(loginAction);
 
-        setItem(STORAGE_KEYS.USER_DATA, userData); // Async Storage
-      }
-    } catch (error) {
-      console.log('error in login: ', error);
-    }
+    //     setItem(STORAGE_KEYS.USER_DATA, userData); // Async Storage
+    //   }
+    // } catch (error) {
+    //   console.log('error in login: ', error);
+    // }
     //
-    // dispatch()
+    dispatch(setIsLoginData());
   };
 
   const simulatedApiCallForLogin = () => {
@@ -95,18 +98,17 @@ function LoginScreen() {
 
   const onSetPassword = passVal => {
     setPassword(passVal);
-    // const action = {
-    //   type: 'SET_PASSWORD',
-    //   payload: passVal,
-    // };
-    // dispatch(action);
   };
 
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <Text>{'Login Screen'}</Text>
 
-      <Text>{`Auth State Obj is: ${JSON.stringify(authState)}`}</Text>
+      {authState?.isLoggingIn && <Text>{'Please wait .....'}</Text>}
+
+      {authState?.errorLogin && (
+        <Text style={{color: 'red'}}>{`${authState?.errorLogin}`}</Text>
+      )}
       <TextInput
         value={email}
         onChangeText={onSetEmail}

@@ -14,12 +14,28 @@ export const setIsLoadingPosts = () => {
   };
 };
 
+const setNewPosts = () => {
+  const mwFxn = (dispatch, getState) => {};
+  return mwFxn;
+};
+
+const myOtherFxn = () => {
+  console.log('myOtherFxn');
+};
+
+const myFxn = () => myOtherFxn;
+
+console.log(myFxn());
+
 export const setAllPostsData = () => async (dispatch, getState) => {
   console.log(' state of the entire store: ', getState());
+  // const homeState = getState().homeData;
   // 1. Loading
   dispatch({
     type: HOME_ACTIONS.IS_LOADING_POSTS,
   });
+
+  // if (homeState?.posts === 0) {
   // 2. API call
   try {
     const posts = await getPostsData();
@@ -31,4 +47,5 @@ export const setAllPostsData = () => async (dispatch, getState) => {
   } catch (error) {
     console.log('error: ', error);
   }
+  // }
 };

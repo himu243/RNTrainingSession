@@ -13,6 +13,14 @@ export const getItem = async key => {
   return value;
 };
 
+export const removeItem = async key => {
+  try {
+    await AsyncStorage.removeItem(key);
+  } catch (error) {
+    console.log('Error in removing item: ', error);
+  }
+};
+
 export const STORAGE_KEYS = {
   IS_LOGGED_IN: 'isLoggedIn',
   USER_DATA: 'USER_DATA',

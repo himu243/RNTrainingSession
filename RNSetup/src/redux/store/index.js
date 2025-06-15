@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
   homeData: homeReducer,
 });
 
-const store = createStore(rootReducer, applyMiddleware(thunk));
+const store = createStore(rootReducer, applyMiddleware(thunk, logger));
 
 export default store;
 
