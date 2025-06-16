@@ -75,13 +75,13 @@ function LoginScreen() {
     dispatch(setIsLoginData());
   };
 
-  const simulatedApiCallForLogin = () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve({userId: 1, name: 'Himanshu', phNo: '9199999999'});
-      }, 1000);
-    });
-  };
+  // const simulatedApiCallForLogin = () => {
+  //   return new Promise((resolve, reject) => {
+  //     setTimeout(() => {
+  //       resolve({userId: 1, name: 'Himanshu', phNo: '9199999999'});
+  //     }, 1000);
+  //   });
+  // };
 
   const onSetEmail = emailVal => {
     setEmail(emailVal);

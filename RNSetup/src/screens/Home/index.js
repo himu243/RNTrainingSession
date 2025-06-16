@@ -104,8 +104,11 @@ function HomeScreen({route}) {
         title={'Go to Details'}
         onPress={() => navigation.navigate(NAVIGATION_ROUTE_NAME.DETAILS)}
       /> */}
-
+      {}
       {homeState?.isLoadingPosts && <Text>{'Data Loading ......'}</Text>}
+      {homeState?.errorPosts && (
+        <Text style={{color: 'red'}}>{`${homeState?.errorPosts}`}</Text>
+      )}
       {homeState.posts &&
         homeState.posts
           ?.slice(0, 10)

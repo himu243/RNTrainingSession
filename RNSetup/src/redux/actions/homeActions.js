@@ -45,7 +45,10 @@ export const setAllPostsData = () => async (dispatch, getState) => {
       payload: posts,
     });
   } catch (error) {
-    console.log('error: ', error);
+    dispatch({
+      type: HOME_ACTIONS.ERROR_POSTS,
+      payload: error,
+    });
   }
   // }
 };

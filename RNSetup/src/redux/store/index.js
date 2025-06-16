@@ -6,10 +6,12 @@ console.log('thunk is: ', thunk);
 
 import authReducer from '../reducers/authReducer';
 import homeReducer from '../reducers/homeReducer';
+import todoReducer from '../reducers/toDoReducer';
 
 const rootReducer = combineReducers({
   authData: authReducer,
   homeData: homeReducer,
+  todoData: todoReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk, logger));

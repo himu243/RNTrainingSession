@@ -24,4 +24,5 @@ export const removeItem = async key => {
 export const STORAGE_KEYS = {
   IS_LOGGED_IN: 'isLoggedIn',
   USER_DATA: 'USER_DATA',
+  TODO_LIST: 'TODO_LIST',
 };

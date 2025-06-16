@@ -17,8 +17,9 @@ import {AppContext, AppStateProvider} from '../context';
 import SplashScreen from '../screens/Splash';
 import {Provider, useSelector} from 'react-redux';
 import store from '../redux/store';
+import TodoScreen from '../screens/TodoScreen';
 
-const {LOGIN, FORGET_PASSWORD, HOME, DETAILS, PROFILE, SETTINGS, TAB} =
+const {LOGIN, FORGET_PASSWORD, HOME, TODO, DETAILS, PROFILE, SETTINGS, TAB} =
   NAVIGATION_ROUTE_NAME;
 
 // const {Navigator, Screen} = createNativeStackNavigator();
@@ -37,6 +38,7 @@ const AuthStack = () => {
 const HomeStack = () => {
   return (
     <Stack.Navigator>
+      <Stack.Screen name={TODO} component={TodoScreen} />
       <Stack.Screen name={HOME} component={HomeScreen} />
       <Stack.Screen name={DETAILS} component={DetailsScreen} />
     </Stack.Navigator>

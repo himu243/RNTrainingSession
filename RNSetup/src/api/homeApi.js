@@ -2,19 +2,10 @@ import ApiInstance from './index';
 
 export const getPostsData = async () => {
   try {
-    const data = await ApiInstance.get('/posts', {
-      params: {
-        a: 1,
-      },
-    });
+    const data = await ApiInstance.get('/posts');
     console.log('Outside data: ', data);
     return data?.result;
   } catch (error) {}
-
-  //   const myData = await fetch();
-  //   const resp = await myData.json();
-  //
-  //   console.log(data.data);
 };
 
 // , {
