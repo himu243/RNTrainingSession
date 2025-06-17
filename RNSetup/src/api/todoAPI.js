@@ -71,7 +71,7 @@ export const simulatedUpdateTodoListData = async itemToUpdate => {
                 resolve({
                   status: 200,
                   message: 'Data Updated Successfully',
-                  itemToUpdate,
+                  item: itemToUpdate,
                 }),
               )
               .catch(error => reject(error));

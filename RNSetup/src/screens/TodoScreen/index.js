@@ -1,7 +1,18 @@
 import React, {useState} from 'react';
-import {View, Text, TouchableOpacity, FlatList, TextInput} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  FlatList,
+  TextInput,
+  Button,
+} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
-import {addTodoListItem} from '../../redux/actions/todoActions';
+import {
+  addTodoListItem,
+  deleteToDoListItem,
+  updateToDoListItem,
+} from '../../redux/actions/todoActions';
 
 const TodoScreen = () => {
   const todoData = useSelector(state => state.todoData);
@@ -13,18 +24,7 @@ const TodoScreen = () => {
     dispatch(addTodoListItem(textTodoItem));
   };
 
-  const renderTodoItem = ({item}) => {
-    return (
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          padding: 8,
-        }}>
-        <TextInput value={item.title} />
-      </View>
-    );
-  };
+  const renderTodoItem = ({item}) => <ToDoItem item={item} />;
 
   console.log('todoData: ', todoData);
 
@@ -68,3 +68,35 @@ const TodoScreen = () => {
 };
 
 export default TodoScreen;
+
+const ToDoItem = ({item}) => {
+  console.log('item in todo Item: ', item.title);
+
+  const [txtTitle, setTextTitle] = useState(item?.title);
+
+  const dispatch = useDispatch();
+
+  const onDeleteitem = () => {
+    dispatch(deleteToDoListItem(item));
+  };
+
+  const onEditItem = () => {
+    dispatch(updateToDoListItem({...item, title: txtTitle}));
+  };
+
+  return (
+    <>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          padding: 8,
+        }}>
+        <TextInput value={txtTitle} onChangeText={setTextTitle} />
+        <Button title="Edit" onPress={onEditItem} />
+        <Button title="Delete" onPress={onDeleteitem} />
+      </View>
+      <Text>{`Current Item is: ${item?.title}`}</Text>
+    </>
+  );
+};
