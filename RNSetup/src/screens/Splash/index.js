@@ -6,6 +6,8 @@ import {AppContext} from '../../context';
 import {getItem, STORAGE_KEYS} from '../../helper/LocalStorageHelper';
 import {setIsLogin} from '../../redux/actions/authActions';
 import {useDispatch} from 'react-redux';
+import {getAuth} from '@react-native-firebase/auth';
+import {getCurrentFBUser} from '../../api/authApi';
 
 const SplashScreen = () => {
   const {appStateDispatch} = React.useContext(AppContext);
@@ -33,9 +35,12 @@ const SplashScreen = () => {
     // };
     // appStateDispatch(action);
     try {
-      const userData = await getItem(STORAGE_KEYS.USER_DATA);
+      // const userData = await getItem(STORAGE_KEYS.USER_DATA);
+      const userData = getCurrentFBUser();
+      console.log('Current user in firebase: ', userData);
       if (userData) {
-        const loginAction = setIsLogin(JSON.parse(userData)); // actionCreator
+        // const loginAction = setIsLogin(JSON.parse(userData)); // actionCreator
+        const loginAction = setIsLogin(userData);
         dispatch(loginAction);
       }
     } catch (error) {

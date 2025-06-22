@@ -10,6 +10,7 @@ import {
   setIsLoadingPosts,
   setPostsData,
 } from '../../redux/actions/homeActions';
+import DismissKeyboard from '../../components/DismissKeyboard';
 
 function HomeScreen({route}) {
   const navigation = useNavigation();
@@ -90,9 +91,10 @@ function HomeScreen({route}) {
   console.log('home state: ', homeState);
 
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Home Screen</Text>
-      {/* {screenData?.isLoading && <Text>{'Data Loading ......'}</Text>}
+    <DismissKeyboard>
+      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+        <Text>Home Screen</Text>
+        {/* {screenData?.isLoading && <Text>{'Data Loading ......'}</Text>}
       {screenData.data &&
         screenData?.data
           ?.slice(0, 10)
@@ -104,21 +106,22 @@ function HomeScreen({route}) {
         title={'Go to Details'}
         onPress={() => navigation.navigate(NAVIGATION_ROUTE_NAME.DETAILS)}
       /> */}
-      {}
-      {homeState?.isLoadingPosts && <Text>{'Data Loading ......'}</Text>}
-      {homeState?.errorPosts && (
-        <Text style={{color: 'red'}}>{`${homeState?.errorPosts}`}</Text>
-      )}
-      {homeState.posts &&
-        homeState.posts
-          ?.slice(0, 10)
-          .map((post, index) => <Text key={post?.id}>{post?.title}</Text>)}
-      {/* {screenData?.errorLoading && <Text>{'Error Loading Data'}</Text>} */}
-      <Button
-        title={'Go to Details'}
-        onPress={() => navigation.navigate(NAVIGATION_ROUTE_NAME.DETAILS)}
-      />
-    </View>
+        {}
+        {homeState?.isLoadingPosts && <Text>{'Data Loading ......'}</Text>}
+        {homeState?.errorPosts && (
+          <Text style={{color: 'red'}}>{`${homeState?.errorPosts}`}</Text>
+        )}
+        {homeState.posts &&
+          homeState.posts
+            ?.slice(0, 10)
+            .map((post, index) => <Text key={post?.id}>{post?.title}</Text>)}
+        {/* {screenData?.errorLoading && <Text>{'Error Loading Data'}</Text>} */}
+        <Button
+          title={'Go to Details'}
+          onPress={() => navigation.navigate(NAVIGATION_ROUTE_NAME.DETAILS)}
+        />
+      </View>
+    </DismissKeyboard>
   );
 }
 export default HomeScreen;

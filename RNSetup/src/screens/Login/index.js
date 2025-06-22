@@ -1,11 +1,13 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useState, useReducer} from 'react';
 import {View, Text, TextInput, Button} from 'react-native';
+
 import {NAVIGATION_ROUTE_NAME} from '../../constants';
 import {AppContext} from '../../context';
 import {setItem, STORAGE_KEYS} from '../../helper/LocalStorageHelper';
 import {useDispatch, useSelector} from 'react-redux';
 import {setIsLogin, setIsLoginData} from '../../redux/actions/authActions';
+import DismissKeyboard from '../../components/DismissKeyboard';
 
 const stateChangerFxn = (prevState, action) => {
   const {type, payload} = action;
@@ -56,23 +58,20 @@ function LoginScreen() {
     // };
     // console.log('setting action: ', action);
     // appStateDispatch(action);
-
     // setItem(STORAGE_KEYS.IS_LOGGED_IN, true);
-
     // API Call
     // try {
     //   const userData = await simulatedApiCallForLogin();
     //   if (userData) {
     //     const loginAction = setIsLogin(userData); // actionCreator
     //     dispatch(loginAction);
-
     //     setItem(STORAGE_KEYS.USER_DATA, userData); // Async Storage
     //   }
     // } catch (error) {
     //   console.log('error in login: ', error);
     // }
     //
-    dispatch(setIsLoginData());
+    dispatch(setIsLoginData(email, password));
   };
 
   // const simulatedApiCallForLogin = () => {
@@ -101,34 +100,40 @@ function LoginScreen() {
   };
 
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>{'Login Screen'}</Text>
+    <DismissKeyboard>
+      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+        <Text>{'Login Screen'}</Text>
 
-      {authState?.isLoggingIn && <Text>{'Please wait .....'}</Text>}
+        {authState?.isLoggingIn && <Text>{'Please wait .....'}</Text>}
 
-      {authState?.errorLogin && (
-        <Text style={{color: 'red'}}>{`${authState?.errorLogin}`}</Text>
-      )}
-      <TextInput
-        value={email}
-        onChangeText={onSetEmail}
-        placeholder="Enter User Id or Email"
-        style={{padding: 8, margin: 8, borderWidth: 1}}
-      />
-      <TextInput
-        value={password}
-        onChangeText={onSetPassword}
-        placeholder="Enter Password"
-        style={{padding: 8, margin: 8, borderWidth: 1}}
-      />
-      <Button title="Login" onPress={onPressLogin} />
-      <Button
-        title="Forget Password"
-        onPress={() =>
-          navigation.navigate(NAVIGATION_ROUTE_NAME.FORGET_PASSWORD)
-        }
-      />
-    </View>
+        {authState?.errorLogin && (
+          <Text style={{color: 'red'}}>{`${authState?.errorLogin}`}</Text>
+        )}
+        <TextInput
+          value={email}
+          onChangeText={onSetEmail}
+          placeholder="Enter User Id or Email"
+          style={{padding: 8, margin: 8, borderWidth: 1, minWidth: '0%'}}
+        />
+        <TextInput
+          value={password}
+          onChangeText={onSetPassword}
+          placeholder="Enter Password"
+          style={{padding: 8, margin: 8, borderWidth: 1}}
+          secureTextEntry
+        />
+        <Button title="Login" onPress={onPressLogin} />
+
+        <View style={{marginTop: 8}}>
+          <Button
+            title="Forgot Password"
+            onPress={() =>
+              navigation.navigate(NAVIGATION_ROUTE_NAME.FORGET_PASSWORD)
+            }
+          />
+        </View>
+      </View>
+    </DismissKeyboard>
   );
 }
 export default LoginScreen;

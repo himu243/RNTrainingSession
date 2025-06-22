@@ -4,7 +4,7 @@ import * as React from 'react';
 import {Image} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {NAVIGATION_ROUTE_NAME} from '../constants';
+import {getAuth, onAuthStateChanged} from '@react-native-firebase/auth';
 
 import HomeScreen from '../screens/Home';
 import ProfileScreen from '../screens/Profile';
@@ -15,9 +15,12 @@ import DetailsScreen from '../screens/Details';
 import SettingsScreen from '../screens/Settings';
 import {AppContext, AppStateProvider} from '../context';
 import SplashScreen from '../screens/Splash';
-import {Provider, useSelector} from 'react-redux';
+import {Provider, useDispatch, useSelector} from 'react-redux';
 import store from '../redux/store';
 import TodoScreen from '../screens/TodoScreen';
+
+import {NAVIGATION_ROUTE_NAME} from '../constants';
+import {setIsLogin, setIsLoginData} from '../redux/actions/authActions';
 
 const {LOGIN, FORGET_PASSWORD, HOME, TODO, DETAILS, PROFILE, SETTINGS, TAB} =
   NAVIGATION_ROUTE_NAME;
@@ -117,6 +120,19 @@ function RootStack() {
   const {appState} = React.useContext(AppContext);
 
   const authState = useSelector(state => state.authData);
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    const subscriber = onAuthStateChanged(getAuth(), handleAuthStateChanged);
+
+    return () => {
+      subscriber();
+    };
+  }, []);
+
+  const handleAuthStateChanged = user => {
+    console.log('Firebase user is: ', user);
+  };
 
   if (authState.isLoggedIn) {
     return <RootTabNavigator />;
