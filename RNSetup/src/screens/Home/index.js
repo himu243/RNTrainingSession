@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {View, Text, Button} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
@@ -11,9 +11,15 @@ import {
   setPostsData,
 } from '../../redux/actions/homeActions';
 import DismissKeyboard from '../../components/DismissKeyboard';
+import {
+  addCollectionSnapshot,
+  COLLECTION_NAMES,
+} from '../../helper/firestoreHelper';
 
 function HomeScreen({route}) {
   const navigation = useNavigation();
+  const documentUnsubscribe = useRef(null);
+
   console.log('route.params: ', route.params);
 
   const homeState = useSelector(state => state.homeData);
@@ -28,9 +34,21 @@ function HomeScreen({route}) {
   const [state, setState] = useState(1);
   const [name, setName] = useState('himanshu');
 
+  const [courses, setCourses] = useState([]);
+
   useEffect(() => {
     // initialiseData();
-    initialiseHomeData();
+    // initialiseHomeData();
+    const unsubscribe = addCollectionSnapshot(
+      COLLECTION_NAMES.COURSES,
+      data => {
+        setCourses(data);
+      },
+    );
+
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   const initialiseHomeData = async () => {
@@ -47,6 +65,11 @@ function HomeScreen({route}) {
     //   console.log('error: ', error);
     // }
   };
+
+  const initialiseCoursesData = () => {
+    documentUnsubscribe.current = addCollectionSnapshot();
+  };
+
   // const initialiseData = async () => {
   //   setScreenData(prevData => ({
   //     ...prevData,
@@ -111,10 +134,12 @@ function HomeScreen({route}) {
         {homeState?.errorPosts && (
           <Text style={{color: 'red'}}>{`${homeState?.errorPosts}`}</Text>
         )}
-        {homeState.posts &&
-          homeState.posts
+        {courses &&
+          courses
             ?.slice(0, 10)
-            .map((post, index) => <Text key={post?.id}>{post?.title}</Text>)}
+            .map((course, index) => (
+              <Text key={course?.title}>{course?.title}</Text>
+            ))}
         {/* {screenData?.errorLoading && <Text>{'Error Loading Data'}</Text>} */}
         <Button
           title={'Go to Details'}

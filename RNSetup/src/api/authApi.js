@@ -14,16 +14,36 @@ export const simulatedApiCallForLogin = () => {
   });
 };
 
-export const firebaseEmailPasswordLogin = async (email, password) => {
+export const firebaseSignupWithEmailPassword = async (email, password) => {
+  let createdUser;
+  let isUserLogin = false;
   try {
-    // let fbUserCred = await signInWithEmailAndPassword(
-    //   getAuth(),
-    //   email,
-    //   password,
-    // );
-    // if (!fbUserCred.user) {
     // User does not exists, so create user
-    const createdUser = await createUserWithEmailAndPassword(
+    createdUser = await createUserWithEmailAndPassword(
+      getAuth(),
+      email,
+      password,
+    );
+    createdUser = createdUser?.user;
+    // }
+    // return fbUserCred.user;
+  } catch (error) {
+    if (error.code === 'auth/email-already-in-use') {
+      isUserLogin = true;
+      // Login User
+      createdUser = await firebaseLoginWithEmailAndPassword(email, password);
+      createdUser = createdUser?._user;
+    } else {
+      throw Error(error);
+    }
+  }
+  console.log('Created user in login is: ', createdUser);
+  return {isLogin: isUserLogin, user: createdUser};
+};
+
+export const firebaseLoginWithEmailAndPassword = async (email, password) => {
+  try {
+    const createdUser = await signInWithEmailAndPassword(
       getAuth(),
       email,
       password,
@@ -33,8 +53,6 @@ export const firebaseEmailPasswordLogin = async (email, password) => {
     } else {
       throw Error('Error loggin in');
     }
-    // }
-    // return fbUserCred.user;
   } catch (error) {
     throw Error(error);
   }

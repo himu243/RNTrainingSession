@@ -6,6 +6,7 @@ export const NAVIGATION_ROUTE_NAME = {
   DETAILS: 'Details',
   PROFILE: 'Profile',
   SETTINGS: 'Settings',
+  PERMISSIONS_DEMO: 'PermissionsDemo',
   TAB: {
     HOME_TAB: 'Homee',
     PROFILE_TAB: 'Profilee',

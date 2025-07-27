@@ -1,7 +1,7 @@
 // In App.js in a new project
 
 import * as React from 'react';
-import {Image} from 'react-native';
+import {Image, Platform} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {getAuth, onAuthStateChanged} from '@react-native-firebase/auth';
@@ -21,9 +21,20 @@ import TodoScreen from '../screens/TodoScreen';
 
 import {NAVIGATION_ROUTE_NAME} from '../constants';
 import {setIsLogin, setIsLoginData} from '../redux/actions/authActions';
+import PermissionsDemo from '../screens/PermissionsDemo';
+import PermissionScreen from '../screens/PermissionsScreen';
 
-const {LOGIN, FORGET_PASSWORD, HOME, TODO, DETAILS, PROFILE, SETTINGS, TAB} =
-  NAVIGATION_ROUTE_NAME;
+const {
+  LOGIN,
+  FORGET_PASSWORD,
+  HOME,
+  TODO,
+  DETAILS,
+  PROFILE,
+  SETTINGS,
+  PERMISSIONS_DEMO,
+  TAB,
+} = NAVIGATION_ROUTE_NAME;
 
 // const {Navigator, Screen} = createNativeStackNavigator();
 const Stack = createNativeStackNavigator();
@@ -40,10 +51,14 @@ const AuthStack = () => {
 
 const HomeStack = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      initialRouteName={
+        Platform.OS === 'android' ? PERMISSIONS_DEMO : PERMISSIONS_DEMO
+      }>
       <Stack.Screen name={TODO} component={TodoScreen} />
       <Stack.Screen name={HOME} component={HomeScreen} />
       <Stack.Screen name={DETAILS} component={DetailsScreen} />
+      <Stack.Screen name={PERMISSIONS_DEMO} component={PermissionScreen} />
     </Stack.Navigator>
   );
 };

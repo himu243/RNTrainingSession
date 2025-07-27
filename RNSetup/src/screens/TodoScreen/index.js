@@ -13,6 +13,9 @@ import {
   deleteToDoListItem,
   updateToDoListItem,
 } from '../../redux/actions/todoActions';
+import uuid from 'react-native-uuid';
+
+import {COLLECTION_NAMES, setDocument} from '../../helper/firestoreHelper';
 
 const TodoScreen = () => {
   const todoData = useSelector(state => state.todoData);
@@ -20,8 +23,15 @@ const TodoScreen = () => {
 
   const [textTodoItem, setTextTodoItem] = useState('');
 
+  // 0
+  // 1
   const onAddPress = () => {
-    dispatch(addTodoListItem(textTodoItem));
+    setDocument(COLLECTION_NAMES.COURSES, uuid.v4(), {
+      title: textTodoItem,
+      price: `$${Math.random() * 15000}`,
+      prerequisites: ['java', 'html', 'css', 'javascript'],
+    });
+    // dispatch(addTodoListItem(textTodoItem));
   };
 
   const renderTodoItem = ({item}) => <ToDoItem item={item} />;
@@ -44,7 +54,7 @@ const TodoScreen = () => {
         <TextInput
           value={textTodoItem}
           onChangeText={setTextTodoItem}
-          placeholder="Enter to do item to add"
+          placeholder="Enter Course to add"
           style={{padding: 8, margin: 8, borderWidth: 1}}
         />
         <TouchableOpacity
