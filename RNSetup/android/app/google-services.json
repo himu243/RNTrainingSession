@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "225356290156",
+    "project_id": "rnsetup-648ae",
+    "storage_bucket": "rnsetup-648ae.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:225356290156:android:b1a62ad00e2fe88cfc6049",
+        "android_client_info": {
+          "package_name": "com.rnsetup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "225356290156-r6odurpc72agl2b3apjno0epukhajdq8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsyYTSH8_1ei-tdlPsNf3QlBORTpExJxk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "225356290156-r6odurpc72agl2b3apjno0epukhajdq8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "225356290156-si1r4q8lvoq4arsd3cm7lcdk9k5ko3ta.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.myorg.rnsetup243"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
