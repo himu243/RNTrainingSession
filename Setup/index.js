@@ -363,7 +363,7 @@ used in a place where fxns are used as values like in fxn statement
 
 // Truthy Values - {}, [],
 
-const cart = ["book", "jeans", "TV"];
+// const cart = ["book", "jeans", "TV"];
 
 // createOrder(cart, () => {
 //   goingForPayment(() => {
@@ -405,42 +405,42 @@ const cart = ["book", "jeans", "TV"];
 //     updateWallet();
 //   });
 
-const myTimeoutFxn = () => {
-  const callbackOfPromiseConstructor = (resolve, reject) => {
-    console.log("3");
-    const timeOutTimer = 2000;
-    setTimeout(() => {
-      console.log("4");
-      if (timeOutTimer % 2 === 0) {
-        resolve("10");
-      } else {
-        reject(10);
-      }
-    }, timeOutTimer);
-  };
+// const myTimeoutFxn = () => {
+//   const callbackOfPromiseConstructor = (resolve, reject) => {
+//     console.log("3");
+//     const timeOutTimer = 2000;
+//     setTimeout(() => {
+//       console.log("4");
+//       if (timeOutTimer % 2 === 0) {
+//         resolve("10");
+//       } else {
+//         reject(10);
+//       }
+//     }, timeOutTimer);
+//   };
 
-  console.log("1");
-  const promise = new Promise(callbackOfPromiseConstructor);
-  console.log("2");
-  return promise;
-};
+//   console.log("1");
+//   const promise = new Promise(callbackOfPromiseConstructor);
+//   console.log("2");
+//   return promise;
+// };
 
-myTimeoutFxn()
-  .then((val) => {
-    console.log("5");
-    console.log("Value from promise: ", val);
-  })
-  .catch((val) => {
-    console.log("catch from promise: ", val);
-  });
+// myTimeoutFxn()
+//   .then((val) => {
+//     console.log("5");
+//     console.log("Value from promise: ", val);
+//   })
+//   .catch((val) => {
+//     console.log("catch from promise: ", val);
+//   });
 
-fetch("https://jsonplaceholder.typicode.com/pos")
-  .then((val) => {
-    console.log("val: ", val);
-  })
-  .catch((err) => {
-    console.log("err: ", err);
-  });
+// fetch("https://jsonplaceholder.typicode.com/pos")
+//   .then((val) => {
+//     console.log("val: ", val);
+//   })
+//   .catch((err) => {
+//     console.log("err: ", err);
+//   });
 // {state: pending, result: undefined}
 // {state: fulfilled, result: {body: "", headers: "", url: ""}}
 
@@ -452,3 +452,38 @@ fetch("https://jsonplaceholder.typicode.com/pos")
 // }
 
 // const myClassObj = new MyClass(1, 2);
+
+// console.log("Start");
+
+// setTimeout(() => {
+//   console.log("Set timeout called");
+// }, 1000);
+
+// fetch("https://jsonplaceholder.typicode.com/todos").then(
+//   async (response) => {}
+// ); // 300ms
+
+// for (let index = 0; index < 5000000000; index++) {
+//   // console.log("value: ", index);
+// } // 5 seconds
+
+// console.log("End");
+
+setTimeout(() => {
+  console.log("1");
+}, 1000); //5:08:33,270 // 5:09:33,270
+
+new Promise(() => {
+  console.log("2");
+}); //5:08:33,273
+
+new Promise((resolve) => {
+  setTimeout(() => {
+    resolve(3);
+  }, 1000); // //5:08:33,285 -> // 5:09:33,285
+}).then((val) => {
+  console.log(val);
+});
+
+// 2,
+let a = 10;
